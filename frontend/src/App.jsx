@@ -1,20 +1,22 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Collection from "./pages/Collection";
+import { ToastContainer } from "react-toastify";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+import SearchBar from "./components/SearchBar";
 import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Product from "./pages/Product";
 import Cart from "./pages/Cart";
+import Collection from "./pages/Collection";
+import Contact from "./pages/Contact";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import PlaceOrder from "./pages/PlaceOrder";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import SearchBar from "./components/SearchBar";
+import Product from "./pages/Product";
 
 const App = () => {
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+      <ToastContainer />
       <Navbar />
       <SearchBar />
       <Routes>
