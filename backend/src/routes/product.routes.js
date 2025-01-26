@@ -6,11 +6,13 @@ import {
   singleProduct,
 } from "../controllers/product.controller.js";
 import upload from "../middlewares/multer.js";
+import verifyAdmin from "../middlewares/adminAuth.js";
 
 const productRouter = Router();
 
 productRouter.post(
   "/add",
+  verifyAdmin,
   upload.fields([
     { name: "image1", maxCount: 1 },
     { name: "image2", maxCount: 1 },
@@ -20,7 +22,7 @@ productRouter.post(
   addProduct
 );
 
-productRouter.post("/remove", removeProduct);
+productRouter.post("/remove", verifyAdmin, removeProduct);
 
 productRouter.get("/single", singleProduct);
 
