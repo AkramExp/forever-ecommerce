@@ -11,14 +11,16 @@ const Cart = () => {
 
   useEffect(() => {
     let tempData = [];
-    for (const items in cartItems) {
-      for (const item in cartItems[items]) {
-        if (cartItems[items][item] > 0) {
-          tempData.push({
-            _id: items,
-            size: item,
-            quantity: cartItems[items][item],
-          });
+    if (products.length !== 0) {
+      for (const items in cartItems) {
+        for (const item in cartItems[items]) {
+          if (cartItems[items][item] > 0) {
+            tempData.push({
+              _id: items,
+              size: item,
+              quantity: cartItems[items][item],
+            });
+          }
         }
       }
 
@@ -68,7 +70,7 @@ const Cart = () => {
                 type="number"
                 min={1}
                 defaultValue={item.quantity}
-                className="border max-w-10 px-1 sm:px-2 py-1"
+                className="border max-w-14 px-1 sm:px-2 py-1"
                 onChange={(e) =>
                   e.target.value === "" || e.target.value === 0
                     ? null
