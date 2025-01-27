@@ -1,4 +1,4 @@
-import User from "../models/user.model";
+import User from "../models/user.model.js";
 
 export const addToCart = async (req, res) => {
   try {
@@ -25,6 +25,46 @@ export const addToCart = async (req, res) => {
     await User.findByIdAndUpdate(userId, { cartData });
 
     res.json({ success: true, message: "Added to Cart" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const updateCart = async (req, res) => {
+  try {
+    const { userId, itemId, size, quantity } = req.body;
+
+    const findUser = await User.findById(userId);
+
+    if (!findUser)
+      return res.json({ success: false, message: "User Doesn't exists" });
+
+    const cartData = findUser.cartData;
+
+    cartData[itemId][size] = quantity;
+
+    await User.findByIdAndUpdate(userId, { cartData });
+
+    res.json({ success: true, message: "Cart Updated" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const getUserCart = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    const findUser = await User.findById(userId);
+
+    if (!findUser)
+      return res.json({ success: false, message: "User Doesn't exists" });
+
+    const cartData = findUser.cartData;
+
+    res.json({ success: true, cartData });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
