@@ -14,7 +14,9 @@ const ShopContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : ""
+  );
 
   const addToCart = (itemId, size) => {
     if (!size) {
@@ -87,6 +89,10 @@ const ShopContextProvider = ({ children }) => {
   useEffect(() => {
     getProducts();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("token", token);
+  }, [token]);
 
   return (
     <ShopContext.Provider
