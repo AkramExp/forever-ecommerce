@@ -49,13 +49,14 @@ export const allOrders = async (req, res) => {
 
 export const toggleOrderState = async (req, res) => {
   try {
-    const { orderId, status } = req.body;
+    const { orderId, orderState } = req.body;
+    console.log(req.body);
 
     const order = await Order.findById(orderId);
 
     if (!order) return res.json({ success: false, message: "Order not found" });
 
-    await Order.findByIdAndUpdate(orderId, { status });
+    await Order.findByIdAndUpdate(orderId, { status: orderState });
 
     res.json({ success: true, message: "Order Updated" });
   } catch (error) {
