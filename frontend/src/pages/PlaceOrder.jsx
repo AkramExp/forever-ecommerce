@@ -17,6 +17,7 @@ const PlaceOrder = () => {
     token,
     setCartItems,
     delivery_fee,
+    clearCart,
   } = useContext(ShopContext);
 
   const [formData, setFormData] = useState({
@@ -38,7 +39,9 @@ const PlaceOrder = () => {
     setFormData((data) => ({ ...data, [name]: value }));
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
     try {
       const orderItems = [];
 
@@ -68,9 +71,10 @@ const PlaceOrder = () => {
             orderData,
             { headers: { token } }
           );
+
           if (response.data.success) {
+            await clearCart();
             toast.success(response.data.message);
-            setCartItems({});
             navigate("/orders");
           } else {
             toast.error(response.data.message);

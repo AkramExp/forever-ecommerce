@@ -141,6 +141,24 @@ const ShopContextProvider = ({ children }) => {
     }
   };
 
+  const clearCart = async () => {
+    try {
+      const response = await axios.post(
+        backend_url + "/api/cart/clear",
+        {},
+        { headers: { token } }
+      );
+
+      if (response.data.success) {
+        setCartItems({});
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     getProducts();
   }, []);
@@ -172,6 +190,7 @@ const ShopContextProvider = ({ children }) => {
         token,
         setToken,
         setCartItems,
+        clearCart,
       }}
     >
       {children}
