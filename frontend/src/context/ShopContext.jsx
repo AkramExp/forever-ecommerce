@@ -171,6 +171,7 @@ const ShopContextProvider = ({ children }) => {
         navigate,
         token,
         setToken,
+        setCartItems,
       }}
     >
       {children}
