@@ -35,3 +35,14 @@ export const userOrders = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+export const allOrders = async (req, res) => {
+  try {
+    const orders = await Order.find();
+
+    res.json({ success: true, orders });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
