@@ -70,3 +70,21 @@ export const getUserCart = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+export const clearCart = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    const findUser = await User.findById(userId);
+
+    if (!findUser)
+      return res.json({ success: false, message: "User Doesn't exists" });
+
+    await User.findByIdAndUpdate(userId, { cartData: {} });
+
+    res.json({ success: true, message: "Cart Cleared" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
