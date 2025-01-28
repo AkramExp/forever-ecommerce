@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
-import Title from "../components/Title";
-import CartTotal from "../components/CartTotal";
-import { assets } from "../assets/assets";
-import { ShopContext } from "../context/ShopContext";
-import { toast } from "react-toastify";
 import axios from "axios";
+import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 import { backend_url } from "../App";
+import { assets } from "../assets/assets";
+import CartTotal from "../components/CartTotal";
+import Title from "../components/Title";
+import { ShopContext } from "../context/ShopContext";
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
@@ -15,7 +15,6 @@ const PlaceOrder = () => {
     products,
     getCartAmount,
     token,
-    setCartItems,
     delivery_fee,
     clearCart,
   } = useContext(ShopContext);
@@ -50,8 +49,9 @@ const PlaceOrder = () => {
           const productInfo = structuredClone(
             products.find((item) => item._id === items)
           );
+
           if (productInfo) {
-            productInfo.size = cartItems[items];
+            productInfo.size = item;
             productInfo.quantity = cartItems[items][item];
             orderItems.push(productInfo);
           }
@@ -65,7 +65,7 @@ const PlaceOrder = () => {
       };
 
       switch (method) {
-        case "cod":
+        case "cod": {
           const response = await axios.post(
             backend_url + "/api/order/place-cod",
             orderData,
@@ -79,6 +79,7 @@ const PlaceOrder = () => {
           } else {
             toast.error(response.data.message);
           }
+        }
       }
     } catch (error) {
       toast.error(error.message);
@@ -102,6 +103,7 @@ const PlaceOrder = () => {
             type="text"
             placeholder="First Name"
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            required
           />
           <input
             value={formData.lastName}
@@ -110,6 +112,7 @@ const PlaceOrder = () => {
             name="lastName"
             placeholder="Last Name"
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            required
           />
         </div>
         <input
@@ -119,6 +122,7 @@ const PlaceOrder = () => {
           name="email"
           placeholder="Email"
           className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+          required
         />
         <input
           value={formData.street}
@@ -127,6 +131,7 @@ const PlaceOrder = () => {
           name="street"
           placeholder="Street"
           className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+          required
         />
         <div className="flex gap-3">
           <input
@@ -136,6 +141,7 @@ const PlaceOrder = () => {
             name="city"
             placeholder="City"
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            required
           />
           <input
             value={formData.state}
@@ -144,6 +150,7 @@ const PlaceOrder = () => {
             name="state"
             placeholder="State"
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            required
           />
         </div>
         <div className="flex gap-3">
@@ -154,6 +161,7 @@ const PlaceOrder = () => {
             name="zipcode"
             placeholder="Zipcode"
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            required
           />
           <input
             value={formData.country}
@@ -162,6 +170,7 @@ const PlaceOrder = () => {
             name="country"
             placeholder="Country"
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            required
           />
         </div>
         <input
@@ -171,6 +180,7 @@ const PlaceOrder = () => {
           name="phone"
           placeholder="Phone"
           className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+          required
         />
       </div>
       <div className="mt-8">
@@ -219,8 +229,8 @@ const PlaceOrder = () => {
 
           <div className="w-full text-end mt-8">
             <button
-              onClick={() => navigate("/orders")}
               className="bg-black text-white px-16 py-3 text-sm"
+              type="submit"
             >
               PLACE ORDER
             </button>

@@ -125,22 +125,6 @@ const ShopContextProvider = ({ children }) => {
     }
   };
 
-  const getUserCart = async () => {
-    try {
-      const response = await axios.get(backend_url + "/api/cart/list", {
-        headers: { token },
-      });
-
-      if (response.data.success) {
-        setCartItems(response.data.cartData);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
   const clearCart = async () => {
     try {
       const response = await axios.post(
@@ -168,8 +152,24 @@ const ShopContextProvider = ({ children }) => {
   }, [token]);
 
   useEffect(() => {
+    const getUserCart = async () => {
+      try {
+        const response = await axios.get(backend_url + "/api/cart/list", {
+          headers: { token },
+        });
+
+        if (response.data.success) {
+          setCartItems(response.data.cartData);
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
+
     getUserCart();
-  }, [cartItems]);
+  }, [cartItems, token]);
 
   return (
     <ShopContext.Provider
