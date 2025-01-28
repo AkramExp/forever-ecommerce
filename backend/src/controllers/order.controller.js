@@ -46,3 +46,20 @@ export const allOrders = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+export const toggleOrderState = async (req, res) => {
+  try {
+    const { orderId, status } = req.body;
+
+    const order = await Order.findById(orderId);
+
+    if (!order) return res.json({ success: false, message: "Order not found" });
+
+    await Order.findByIdAndUpdate(orderId, { status });
+
+    res.json({ success: true, message: "Order Updated" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
