@@ -3,8 +3,10 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-const currency = "$";
+const currency = "inr";
 const delivery_fee = 10;
+
+let stripeOrderData = {};
 
 export const placeOrderCod = async (req, res) => {
   try {
@@ -44,21 +46,21 @@ export const placeOrderStripe = async (req, res) => {
       date: Date.now(),
     };
 
-    const order = await Order.create(orderData);
+    stripeOrderData = orderData;
 
     const lineItems = items.map((item) => ({
-      priceData: {
+      price_data: {
         currency,
-        productData: { name: item.name },
+        product_data: { name: item.name },
         unit_amount: item.price * 100,
       },
       quantity: item.quantity,
     }));
 
     lineItems.push({
-      priceData: {
+      price_data: {
         currency,
-        productData: {
+        product_data: {
           name: "Delivery Charges",
         },
         unit_amount: delivery_fee * 100,
@@ -67,8 +69,8 @@ export const placeOrderStripe = async (req, res) => {
     });
 
     const session = await stripe.checkout.sessions.create({
-      success_url: `${origin}/verify?success=true&orderId=${order._id}`,
-      cancel_url: `${origin}/verify?success=false&orderId=${order._id}`,
+      success_url: `${origin}/verify?success=true`,
+      cancel_url: `${origin}/verify?success=false`,
       line_items: lineItems,
       mode: "payment",
     });
@@ -77,6 +79,25 @@ export const placeOrderStripe = async (req, res) => {
       success: true,
       message: "Order Placed",
       session_url: session.url,
+    });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const verifyOrder = async (req, res) => {
+  try {
+    const { success } = req.body;
+
+    if (Boolean(success)) {
+      await Order.create(stripeOrderData);
+    } else {
+      return res.json({ success: false, message: "Failed Payment" });
+    }
+
+    res.json({
+      success: true,
+      message: "Order Placed",
     });
   } catch (error) {
     console.log(error);
