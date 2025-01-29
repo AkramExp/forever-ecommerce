@@ -70,11 +70,9 @@ const ShopContextProvider = ({ children }) => {
   };
 
   const updateQuantity = async (itemId, size, quantity) => {
-    let cartData = structuredClone(cartItems);
+    cartItems[itemId][size] = quantity;
 
-    cartData[itemId][size] = quantity;
-
-    setCartItems(cartData);
+    setCartItems(cartItems);
 
     if (token) {
       try {
