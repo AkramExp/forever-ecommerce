@@ -65,21 +65,45 @@ const PlaceOrder = () => {
       };
 
       switch (method) {
-        case "cod": {
-          const response = await axios.post(
-            backend_url + "/api/order/place-cod",
-            orderData,
-            { headers: { token } }
-          );
+        case "cod":
+          {
+            const response = await axios.post(
+              backend_url + "/api/order/place-cod",
+              orderData,
+              { headers: { token } }
+            );
 
-          if (response.data.success) {
-            await clearCart();
-            toast.success(response.data.message);
-            navigate("/orders");
-          } else {
-            toast.error(response.data.message);
+            if (response.data.success) {
+              await clearCart();
+              toast.success(response.data.message);
+              navigate("/orders");
+            } else {
+              toast.error(response.data.message);
+            }
           }
-        }
+          break;
+
+        case "stripe":
+          {
+            const response = await axios.post(
+              backend_url + "/api/order/stripe",
+              orderData,
+              { headers: { token } }
+            );
+
+            if (response.data.success) {
+              const { session_url } = response.data;
+              console.log(session_url);
+
+              window.location.replace(session_url);
+            } else {
+              toast.error(response.data.message);
+            }
+          }
+          break;
+
+        default:
+          break;
       }
     } catch (error) {
       toast.error(error.message);
