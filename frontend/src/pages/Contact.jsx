@@ -1,7 +1,6 @@
-import React from "react";
-import Title from "../components/Title";
 import { assets } from "../assets/assets";
 import NewsletterBox from "../components/NewsletterBox";
+import Title from "../components/Title";
 
 const Contact = () => {
   return (
@@ -30,7 +29,7 @@ const Contact = () => {
           <p className="text-gray-500">
             Learn more about our jobs and team openings
           </p>
-          <button className="border border-black px-8 py-4 text-sm hover:bg-black hover:text-white transition-all duration-500"></button>
+          {/* <button className="border border-black px-8 py-4 text-sm hover:bg-black hover:text-white transition-all duration-500"></button> */}
         </div>
       </div>
 
