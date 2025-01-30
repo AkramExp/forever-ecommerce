@@ -168,7 +168,7 @@ const Collection = () => {
                 value={"Winterwear"}
                 onClick={toggleSubCategory}
               />{" "}
-              Kids
+              Winterwear
             </p>
           </div>
         </div>
