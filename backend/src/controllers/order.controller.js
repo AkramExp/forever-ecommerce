@@ -1,12 +1,19 @@
 import Order from "../models/order.model.js";
 import Stripe from "stripe";
+import razorpay from "razorpay";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+const razorpayInstance = new razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 
 const currency = "inr";
 const delivery_fee = 10;
 
 let stripeOrderData = {};
+let razorpayOrderData = {};
 
 export const placeOrderCod = async (req, res) => {
   try {
@@ -81,6 +88,40 @@ export const placeOrderStripe = async (req, res) => {
       session_url: session.url,
     });
   } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const placeOrderRazorpay = async (req, res) => {
+  try {
+    const { userId, items, amount, address } = req.body;
+
+    const orderData = {
+      userId,
+      items,
+      amount,
+      address,
+      paymentMethod: "Stripe",
+      payment: false,
+      date: Date.now(),
+    };
+
+    razorpayOrderData = orderData;
+
+    const options = {
+      amount: amount * 100,
+      currency: currency.toUpperCase(),
+    };
+
+    await razorpayInstance.orders.create(options, (error, order) => {
+      if (error) {
+        res.json({ success: false, message: error });
+      }
+      res.json({ success: true, order });
+    });
+  } catch (error) {
+    console.log(error.message);
     res.json({ success: false, message: error.message });
   }
 };
@@ -99,6 +140,27 @@ export const verifyOrder = async (req, res) => {
       success: true,
       message: "Order Placed",
     });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const verifyRazorpay = async (req, res) => {
+  try {
+    const { razorpay_order_id } = req.body;
+
+    const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
+
+    if (!orderInfo)
+      return res.json({ success: false, message: "Payment Failed" });
+
+    if (orderInfo.status === "paid") {
+      await Order.create(razorpayOrderData);
+      res.json({ success: true, message: "Order Placed" });
+    } else {
+      res.json({ success: false, message: "Payment Failed" });
+    }
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
