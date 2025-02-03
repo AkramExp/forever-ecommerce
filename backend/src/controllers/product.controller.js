@@ -91,3 +91,19 @@ export const listProducts = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+export const getProductById = async (req, res) => {
+  try {
+    const { productId } = req.params;
+
+    const product = await Product.findById(productId);
+
+    if (!product)
+      return res.json({ success: false, message: "Product not found" });
+
+    res.json({ success: true, product });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
