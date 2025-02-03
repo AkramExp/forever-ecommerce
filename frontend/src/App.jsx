@@ -13,6 +13,7 @@ import PlaceOrder from "./pages/PlaceOrder";
 import Product from "./pages/Product";
 import Orders from "./pages/Orders";
 import Verify from "./pages/Verify";
+import ScrollToTop from "./lib/ScrollToTop";
 
 export const backend_url = import.meta.env.VITE_BACKEND_URL;
 
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/verify" element={<Verify />} />
       </Routes>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };
