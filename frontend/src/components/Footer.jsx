@@ -8,10 +8,11 @@ const Footer = () => {
         <div>
           <img src={assets.logo} alt="logo" className="mb-5 w-32" />
           <p className="w-full md:w-2/3 text-gray-600">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-            quaerat, repudiandae maiores ducimus tenetur sequi numquam
-            voluptatibus ea tempora eos a saepe. Numquam quis porro, blanditiis
-            quia omnis commodi? Voluptas.
+            Forever is your ultimate destination for timeless fashion, bringing
+            you a curated collection of trendy, high-quality clothing designed
+            to elevate your style. We believe in creating looks that inspire
+            confidence, celebrate individuality, and stay effortlessly chic for
+            every occasion.
           </p>
         </div>
         <div>

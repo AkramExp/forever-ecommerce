@@ -20,23 +20,29 @@ const About = () => {
          text-gray-600"
         >
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita
-            ratione obcaecati voluptatum vel ut repudiandae molestias corrupti!
-            Fuga quas molestiae quod, non eius illum, laudantium explicabo amet
-            libero culpa est?
+            At Forever, we’re passionate about delivering high-quality fashion
+            that stands the test of time. Founded with the vision to bring
+            trendy yet timeless clothing to fashion enthusiasts, we offer a wide
+            range of styles designed to fit every personality and occasion. Our
+            team works tirelessly to curate the best selection of clothing,
+            ensuring that each piece reflects our commitment to quality,
+            comfort, and style.
           </p>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime
-            sapiente beatae doloribus laboriosam, facere alias rerum. Non,
-            labore eaque ducimus in, quam inventore doloribus, amet molestiae
-            debitis quas provident magnam!
+            We believe fashion is more than just clothing—it’s a way to express
+            who you are. That’s why we focus on creating looks that are not only
+            stylish but also versatile and long-lasting. Whether you’re dressing
+            up for a special event or looking for everyday essentials, Forever
+            is here to help you find the perfect piece to make you feel
+            confident and chic, every step of the way
           </p>
           <b className="text-gray-800">Our Mission</b>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-            aperiam repellat similique dolorum sit sequi ipsam molestias eaque
-            ducimus itaque. Nostrum reiciendis laudantium atque voluptatibus
-            alias ex a inventore labore.
+            Our mission at Forever is to provide stylish, high-quality clothing
+            that empowers individuals to express their unique personalities. We
+            strive to offer a seamless shopping experience with a focus on
+            timeless fashion that blends trendsetting designs with lasting
+            comfort and durability.
           </p>
         </div>
       </div>
@@ -49,22 +55,24 @@ const About = () => {
         <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
           <b>Quality Assurance:</b>
           <p className="text-gray-600">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-            architecto quas necessitatibus iste repellendus ipsa,
+            At Forever, we prioritize quality in every piece we offer, ensuring
+            each item is crafted with attention to detail and built to last.
           </p>
         </div>
         <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
           <b>Convenience:</b>
           <p className="text-gray-600">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-            architecto quas necessitatibus iste repellendus ipsa,
+            Shopping with us is easy and hassle-free, with quick delivery and a
+            user-friendly website to make your experience seamless from start to
+            finish.
           </p>
         </div>
         <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
           <b>Exceptional Customer Service:</b>
           <p className="text-gray-600">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-            architecto quas necessitatibus iste repellendus ipsa,
+            Our dedicated team is always ready to assist you, providing
+            personalized support to ensure you find exactly what you need with a
+            smile.
           </p>
         </div>
       </div>
