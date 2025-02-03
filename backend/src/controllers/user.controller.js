@@ -84,3 +84,18 @@ export const adminLogin = async (req, res) => {
     return res.json({ success: false, message: error.message });
   }
 };
+
+export const getUser = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) return res.json({ success: false, message: "User not found" });
+
+    res.json({ success: true, user });
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, message: error.message });
+  }
+};
