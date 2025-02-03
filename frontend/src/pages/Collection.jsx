@@ -13,6 +13,7 @@ const Collection = () => {
   const [sortType, setSortType] = useState("");
 
   function toggleCategory(e) {
+    window.scrollTo(0, 0);
     if (category.includes(e.target.value)) {
       setCategory((prev) => prev.filter((item) => item !== e.target.value));
     } else {
@@ -21,6 +22,7 @@ const Collection = () => {
   }
 
   function toggleSubCategory(e) {
+    window.scrollTo(0, 0);
     if (subCategory.includes(e.target.value)) {
       setSubCategory((prev) => prev.filter((item) => item !== e.target.value));
     } else {
@@ -87,7 +89,7 @@ const Collection = () => {
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
-      <div className="min-w-60">
+      <div className="min-w-60 sm:sticky sm:h-fit sm:top-4">
         <p
           onClick={() => setShowFilter((value) => !value)}
           className="my-2 text-xl flex items-center gap-2 cursor-pointer"
@@ -179,7 +181,7 @@ const Collection = () => {
           <Title text1={"ALL"} text2={"COLLECTIONS"} />
           <select
             onChange={(e) => setSortType(e.target.value)}
-            className="border-2 border-gray-300 text-sm px-2"
+            className="border-2 border-gray-300 text-sm px-2 rounded-md bg-white"
           >
             <option value="relavent">Sort by: Relavent</option>
             <option value="low-high">Sort by: Low to High</option>
