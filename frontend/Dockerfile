@@ -1,6 +1,7 @@
 FROM node:18-alpine AS build
 
-ENV  VITE_BACKEND_URL http://localhost:4000 VITE_RAZORPAY_KEY_ID "rzp_test_czxwtpu0ZlAD1I"
+ENV  VITE_BACKEND_URL="http://localhost:4000 "
+ENV VITE_RAZORPAY_KEY_ID="rzp_test_czxwtpu0ZlAD1I"
 
 WORKDIR /app
 
