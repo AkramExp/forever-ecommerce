@@ -159,7 +159,7 @@ const ShopContextProvider = ({ children }) => {
         if (response.data.success) {
           setCartItems(response.data.cartData);
         } else {
-          toast.error(response.data.message);
+          // toast.error(response.data.message);
         }
       } catch (error) {
         toast.error(error.message);
