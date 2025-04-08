@@ -16,7 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://forever-akramexp.vercel.app",
+    origin: "*",
+    credentials: true,
   })
 );
 connectDB();
